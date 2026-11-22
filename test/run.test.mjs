@@ -1,6 +1,7 @@
 // N8N-REQ-003, -005, -006, -007, -008 (N8N-T-04..07): rows, outputs, errors and diagnostics.
 import { describe, expect, test } from 'vitest';
 import { engine } from '../nodes/Silverpoint/engine';
+import { ChartFailure, RowsFailure } from '../nodes/Silverpoint/messages';
 import { chartFor, outputFor, rowsFor } from '../nodes/Silverpoint/run';
 const items = [
 	{ json: { team: 'A', wins: 12, extra: 1 } },
@@ -24,7 +25,10 @@ describe('rows', () => {
 			[{ a: 2 }, { a: 3 }],
 		]);
 	});
-	test('N8N-REQ-003 · a field that is not an array of objects is an error naming it', () => {
+	test('N8N-REQ-003 · a field that is not an array of objects is a RowsFailure naming it', () => {
+		expect(() => rowsFor([{ json: { rows: 3 } }], { source: 'field', field: 'rows' })).toThrow(
+			RowsFailure,
+		);
 		expect(() => rowsFor([{ json: { rows: 3 } }], { source: 'field', field: 'rows' })).toThrow(
 			/rows/,
 		);
@@ -55,13 +59,19 @@ describe('spec', () => {
 		});
 		expect(spec.props).toMatchObject({ dimensions: ['mass', 'price'] });
 	});
-	test("N8N-REQ-007 · a missing role or column is an error with the SpecError's message", () => {
-		expect(() =>
-			chartFor(engine, [items[0].json], { ...base, roles: { x: 'team', value: 'losses' } }),
-		).toThrow(/bar-chart: the table has no column "losses"/);
-		expect(() => chartFor(engine, [items[0].json], { ...base, roles: { x: 'team' } })).toThrow(
-			/value/,
-		);
+	test('N8N-REQ-007 · a missing role or column is a ChartFailure carrying the SpecError', () => {
+		const failure = (roles) => {
+			try {
+				chartFor(engine, [items[0].json], { ...base, roles });
+			} catch (error) {
+				return error;
+			}
+		};
+		const unknown = failure({ x: 'team', value: 'losses' });
+		expect(unknown).toBeInstanceOf(ChartFailure);
+		expect(unknown.specError).toEqual({ kind: 'role', missing: [], unknownColumns: ['losses'] });
+		expect(unknown.message).toMatch(/bar-chart: the table has no column "losses"/);
+		expect(failure({ x: 'team' }).specError).toMatchObject({ kind: 'role', missing: ['value'] });
 	});
 });
 describe('outputs', () => {

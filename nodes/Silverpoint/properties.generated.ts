@@ -483,7 +483,7 @@ export const chartProperties: INodeProperties[] = [
 			{
 				name: 'Bars: Funnel Chart',
 				value: 'funnel-chart',
-				description: 'Horizontal, centred stages',
+				description: 'Horizontal, centered stages',
 			},
 			{
 				name: 'Bars: Pyramid Chart',
@@ -523,7 +523,7 @@ export const chartProperties: INodeProperties[] = [
 			{
 				name: 'Distributions Comparisons: Diverging Bar Chart',
 				value: 'diverging-bar-chart',
-				description: 'Ordered levels stacked on both sides of a neutral centre',
+				description: 'Ordered levels stacked on both sides of a neutral center',
 			},
 			{
 				name: 'Distributions Comparisons: Dumbbell Chart',
@@ -628,13 +628,12 @@ export const chartProperties: INodeProperties[] = [
 			{
 				name: 'Hierarchies Dimensions: Squarified Treemap',
 				value: 'squarified-treemap',
-				description:
-					'Nested rectangles, area by value, drillable through `rootId` and `onRootChange`',
+				description: 'Nested rectangles, area by value',
 			},
 			{
 				name: 'Hierarchies Dimensions: Sunburst Chart',
 				value: 'sunburst-chart',
-				description: 'A hierarchy as rings of arcs, drillable through `rootId` and `onRootChange`',
+				description: 'A hierarchy as rings of arcs',
 			},
 			{
 				name: 'Hierarchies Dimensions: Tree Chart',
@@ -665,12 +664,12 @@ export const chartProperties: INodeProperties[] = [
 			{
 				name: 'Points Grids: Bubble Chart',
 				value: 'bubble-chart',
-				description: 'Circles whose area encodes `sizeKey`',
+				description: "Circles whose area encodes 'Size Field'",
 			},
 			{
 				name: 'Points Grids: Heatmap Chart',
 				value: 'heatmap-chart',
-				description: 'Labelled rows of values, normalised against `scaleMax`',
+				description: "Labeled rows of values, normalized against 'Scale Max'",
 			},
 			{
 				name: 'Points Grids: Scatter Chart',
@@ -680,12 +679,12 @@ export const chartProperties: INodeProperties[] = [
 			{
 				name: 'Radial: Coxcomb Chart',
 				value: 'coxcomb-chart',
-				description: 'Equal angles, sector area ∝ value',
+				description: 'Equal angles, sector area proportional to value',
 			},
 			{
 				name: 'Radial: Donut Chart',
 				value: 'donut-chart',
-				description: 'Sectors ∝ value around a central readout',
+				description: 'Sectors proportional to value around a central readout',
 			},
 			{
 				name: 'Radial: Gauge Arc',
@@ -700,7 +699,7 @@ export const chartProperties: INodeProperties[] = [
 			{
 				name: 'Radial: Polar Bar Chart',
 				value: 'polar-bar-chart',
-				description: '360° bars out from a hole, length ∝ value',
+				description: '360° bars out from a hole, length proportional to value',
 			},
 			{
 				name: 'Radial: Radar Chart',
@@ -710,12 +709,12 @@ export const chartProperties: INodeProperties[] = [
 			{
 				name: 'Radial: Radial Arc Group',
 				value: 'radial-arc-group',
-				description: 'Concentric 180° tracks, sweep ∝ value / the largest',
+				description: 'Concentric 180° tracks, sweep proportional to value / the largest',
 			},
 			{
 				name: 'Radial: Radial Rings',
 				value: 'radial-rings',
-				description: 'Concentric progress rings, sweep ∝ value in 0-100',
+				description: 'Concentric progress rings, sweep proportional to value in 0-100',
 			},
 			{
 				name: 'Radial: Wind Rose',
@@ -724,7 +723,7 @@ export const chartProperties: INodeProperties[] = [
 			},
 		],
 		default: 'bar-chart',
-		description: 'The silverpoint chart to draw; the list is the pinned host catalog',
+		description: 'The chart to draw, grouped by family',
 	},
 	{
 		displayName: 'X Field',
@@ -764,17 +763,6 @@ export const chartProperties: INodeProperties[] = [
 		displayOptions: { show: { chart: ['line-chart'] } },
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
-			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
 			{
 				displayName: 'Connect Nulls',
 				name: 'connectNulls',
@@ -816,6 +804,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -831,7 +830,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -890,17 +889,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -922,6 +910,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -937,7 +936,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title Field'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -984,17 +983,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1016,6 +1004,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1031,7 +1030,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -1079,17 +1078,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1111,6 +1099,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1126,7 +1125,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -1181,17 +1180,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1213,6 +1201,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1228,7 +1227,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -1274,17 +1273,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1306,6 +1294,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1321,7 +1320,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -1366,17 +1365,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1398,6 +1386,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1413,7 +1412,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -1453,17 +1452,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1492,7 +1480,7 @@ export const chartProperties: INodeProperties[] = [
 					{ name: 'Up', value: 'up' },
 				],
 				default: 'up',
-				description: 'Direction of the mark; from the sign of delta by default',
+				description: "Direction of the mark; from the sign of 'Delta' by default",
 			},
 			{
 				displayName: 'Description',
@@ -1503,6 +1491,17 @@ export const chartProperties: INodeProperties[] = [
 			},
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
+			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
 			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
@@ -1519,7 +1518,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -1573,17 +1572,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1605,6 +1593,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1620,7 +1619,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -1668,17 +1667,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1700,6 +1688,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1715,7 +1714,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -1762,17 +1761,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1794,6 +1782,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1809,7 +1808,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -1817,7 +1816,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'showLine',
 				type: 'boolean',
 				default: true,
-				description: 'Whether to use show line',
+				description: 'Whether to show line',
 			},
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
 			{ displayName: 'Unit', name: 'unit', type: 'string', default: '' },
@@ -1862,17 +1861,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1894,6 +1882,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1909,7 +1908,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -1947,17 +1946,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -1979,6 +1967,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -1994,7 +1993,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2062,17 +2061,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2094,6 +2082,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2109,7 +2108,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2147,17 +2146,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Curve',
 				name: 'curve',
 				type: 'options',
@@ -2191,6 +2179,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2206,7 +2205,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2254,17 +2253,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2286,6 +2274,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2301,7 +2300,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2339,17 +2338,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2371,6 +2359,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2386,7 +2385,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -2394,7 +2393,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'stacked',
 				type: 'boolean',
 				default: false,
-				description: 'Whether to use stacked',
+				description: 'Whether the chart is stacked',
 			},
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
 			{ displayName: 'Unit', name: 'unit', type: 'string', default: '' },
@@ -2440,17 +2439,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2472,6 +2460,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2487,7 +2486,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2535,17 +2534,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2567,6 +2555,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2582,7 +2581,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2624,25 +2623,14 @@ export const chartProperties: INodeProperties[] = [
 				name: 'centerLabel',
 				type: 'string',
 				default: '',
-				description: 'A line under the centre value',
+				description: 'A line under the center value',
 			},
 			{
 				displayName: 'Center Value',
 				name: 'centerValue',
 				type: 'string',
 				default: '',
-				description: 'Printed in the centre; the total by default',
-			},
-			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
+				description: 'Printed in the center; the total by default',
 			},
 			{
 				displayName: 'Data Table',
@@ -2666,6 +2654,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2681,14 +2680,14 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{
 				displayName: 'Legend',
 				name: 'legend',
 				type: 'boolean',
 				default: true,
-				description: 'Whether: Names every sector with its share beside the ring; true by default',
+				description: 'Whether to name every sector with its share beside the ring; on by default',
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2726,17 +2725,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2758,6 +2746,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2773,7 +2772,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2811,17 +2810,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2843,6 +2831,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2858,7 +2857,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2896,17 +2895,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -2928,6 +2916,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -2943,7 +2942,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -2981,17 +2980,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3013,6 +3001,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3028,7 +3027,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -3063,17 +3062,6 @@ export const chartProperties: INodeProperties[] = [
 				description: 'Names the measure under the readout',
 			},
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3095,6 +3083,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3110,7 +3109,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3152,17 +3151,6 @@ export const chartProperties: INodeProperties[] = [
 				description: 'Names the measure under the readout',
 			},
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3184,6 +3172,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3199,7 +3198,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3244,17 +3243,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3276,6 +3264,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3291,7 +3290,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3337,17 +3336,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3369,6 +3357,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3384,7 +3383,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3439,17 +3438,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3471,6 +3459,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3486,7 +3485,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3522,22 +3521,11 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Cumulative',
 				name: 'cumulative',
 				type: 'boolean',
 				default: false,
-				description: 'Whether: Turns the counts into a running total',
+				description: 'Whether to turn the counts into a running total',
 			},
 			{
 				displayName: 'Data Table',
@@ -3561,6 +3549,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3576,7 +3575,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3623,17 +3622,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3655,6 +3643,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3670,7 +3669,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -3707,17 +3706,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3739,6 +3727,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3754,7 +3753,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3772,7 +3771,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'outliers',
 				type: 'boolean',
 				default: true,
-				description: 'Whether: Draws the observations past the whiskers; true by default',
+				description: 'Whether to draw the observations past the whiskers; on by default',
 			},
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
 			{ displayName: 'Unit', name: 'unit', type: 'string', default: '' },
@@ -3823,17 +3822,6 @@ export const chartProperties: INodeProperties[] = [
 					"Kernel bandwidth in data units, shared by every group; Silverman's rule by default",
 			},
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3855,6 +3843,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3870,7 +3869,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -3888,7 +3887,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'quartiles',
 				type: 'boolean',
 				default: true,
-				description: 'Whether: Marks the quartiles inside each violin; true by default',
+				description: 'Whether to mark the quartiles inside each violin; on by default',
 			},
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
 			{ displayName: 'Unit', name: 'unit', type: 'string', default: '' },
@@ -3933,17 +3932,6 @@ export const chartProperties: INodeProperties[] = [
 					"Kernel bandwidth in data units, shared by every group; Silverman's rule by default",
 			},
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -3965,6 +3953,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -3980,7 +3979,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -4033,17 +4032,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4065,6 +4053,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4080,7 +4079,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -4125,17 +4124,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4157,6 +4145,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4172,7 +4171,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -4242,17 +4241,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4285,6 +4273,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4300,7 +4299,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -4359,17 +4358,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4391,6 +4379,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4406,7 +4405,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -4454,17 +4453,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4486,6 +4474,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4501,7 +4500,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -4577,17 +4576,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4609,6 +4597,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4624,7 +4623,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -4711,17 +4710,6 @@ export const chartProperties: INodeProperties[] = [
 			},
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4743,6 +4731,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4758,7 +4757,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -4796,17 +4795,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -4828,6 +4816,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4843,7 +4842,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -4852,14 +4851,14 @@ export const chartProperties: INodeProperties[] = [
 				type: 'number',
 				default: 0,
 				description:
-					'Index of the neutral level, split across the centre; null for none. The middle one by default.',
+					'Index of the neutral level, split across the center; null for none. The middle one by default.',
 			},
 			{
 				displayName: 'Percent',
 				name: 'percent',
 				type: 'boolean',
 				default: true,
-				description: 'Whether: Normalises each row to 100 %; true by default',
+				description: 'Whether to normalize each row to 100 %; on by default',
 			},
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
 			{ displayName: 'Unit', name: 'unit', type: 'string', default: '' },
@@ -4908,20 +4907,9 @@ export const chartProperties: INodeProperties[] = [
 				name: 'arrows',
 				type: 'boolean',
 				default: true,
-				description: 'Whether: Draws direction marks along the path; true by default',
+				description: 'Whether to draw direction marks along the path; on by default',
 			},
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
-			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
 			{
 				displayName: 'Data Table',
 				name: 'dataTable',
@@ -4944,6 +4932,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -4959,7 +4958,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -5004,17 +5003,6 @@ export const chartProperties: INodeProperties[] = [
 				description: 'Cells in the grid; 100 by default',
 			},
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Columns',
 				name: 'columns',
 				type: 'number',
@@ -5043,6 +5031,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5058,7 +5057,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -5106,17 +5105,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5138,6 +5126,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5153,7 +5152,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -5210,17 +5209,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5249,6 +5237,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5264,7 +5263,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -5328,17 +5327,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5367,6 +5355,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5382,7 +5381,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -5445,17 +5444,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5477,6 +5465,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5492,7 +5491,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -5539,17 +5538,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5571,6 +5559,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5586,7 +5585,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -5624,17 +5623,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5656,6 +5644,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5671,7 +5670,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -5733,17 +5732,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5765,6 +5753,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5780,7 +5779,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -5842,17 +5841,6 @@ export const chartProperties: INodeProperties[] = [
 				description: 'Bin size in px; 14 by default',
 			},
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5874,6 +5862,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -5889,7 +5888,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },
@@ -5936,17 +5935,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -5970,10 +5958,21 @@ export const chartProperties: INodeProperties[] = [
 				name: 'filled',
 				type: 'boolean',
 				default: true,
-				description: 'Whether: Fills the bands between levels; true by default',
+				description: 'Whether to fill the bands between levels; on by default',
 			},
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
+			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
 			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
@@ -5990,7 +5989,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -6049,17 +6048,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -6081,6 +6069,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -6096,7 +6095,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -6164,17 +6163,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -6196,6 +6184,17 @@ export const chartProperties: INodeProperties[] = [
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
 			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
+			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
 				type: 'options',
@@ -6211,7 +6210,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{
@@ -6265,17 +6264,6 @@ export const chartProperties: INodeProperties[] = [
 		options: [
 			{ displayName: 'Badge', name: 'badge', type: 'string', default: '' },
 			{
-				displayName: 'Chrome',
-				name: 'chrome',
-				type: 'options',
-				options: [
-					{ name: 'Bare', value: 'bare' },
-					{ name: 'Card', value: 'card' },
-				],
-				default: 'card',
-				description: 'Card draws the full frame; bare only the drawing area',
-			},
-			{
 				displayName: 'Data Table',
 				name: 'dataTable',
 				type: 'options',
@@ -6296,6 +6284,17 @@ export const chartProperties: INodeProperties[] = [
 			},
 			{ displayName: 'Footer, Left', name: 'footerLeft', type: 'string', default: '' },
 			{ displayName: 'Footer, Right', name: 'footerRight', type: 'string', default: '' },
+			{
+				displayName: 'Frame',
+				name: 'chrome',
+				type: 'options',
+				options: [
+					{ name: 'Bare', value: 'bare' },
+					{ name: 'Card', value: 'card' },
+				],
+				default: 'card',
+				description: 'Card draws the full frame; bare only the drawing area',
+			},
 			{
 				displayName: 'Hatch Fill',
 				name: 'hatchFill',
@@ -6319,7 +6318,7 @@ export const chartProperties: INodeProperties[] = [
 				name: 'label',
 				type: 'string',
 				default: '',
-				description: 'Accessible name. If omitted, it is derived from title.',
+				description: "Accessible name. If omitted, it is derived from 'Title'.",
 			},
 			{ displayName: 'Locale', name: 'locale', type: 'string', default: '' },
 			{ displayName: 'Title', name: 'title', type: 'string', default: '' },

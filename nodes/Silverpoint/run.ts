@@ -1,6 +1,7 @@
 // What the node does with one table (N8N-REQ-003, -005, -006, -007, -008), free of n8n's context so
 // it can be tested alone. N8N-Art. 2: it reads only its arguments and returns its output.
-import type { ChartSpec, Diagnostic, Engine } from './engine';
+import type { ChartSpec, Diagnostic, Engine, SpecError } from './engine';
+import { ChartFailure, RowsFailure } from './messages';
 
 export interface ChartParams {
 	readonly chart: string;
@@ -42,18 +43,17 @@ export function rowsFor(
 ): Row[][] {
 	if (source.source === 'items') return [items.map((item) => item.json)];
 	const field = source.field ?? '';
-	return items.map((item, index) => {
+	return items.map((item) => {
 		const value = field
 			.split('.')
 			.reduce<unknown>((at, key) => (isRow(at) ? at[key] : undefined), item.json);
-		if (!Array.isArray(value) || !value.every(isRow)) {
-			throw new Error(
-				`Item ${index}: the field "${field}" must hold an array of objects (one per row).`,
-			);
-		}
+		if (!Array.isArray(value) || !value.every(isRow)) throw new RowsFailure(field);
 		return value;
 	});
 }
+
+const failure = (engine: Engine, chart: string, error: SpecError) =>
+	new ChartFailure(error, `${chart}: ${engine.specErrorMessage(error)}`);
 
 const fieldList = (text: string): string[] =>
 	text
@@ -61,7 +61,7 @@ const fieldList = (text: string): string[] =>
 		.map((s) => s.trim())
 		.filter((s) => s.length > 0);
 
-/** The ChartSpec binding the table, through the engine's specFromTable; an Error with its message. */
+/** The ChartSpec binding the table, through the engine's specFromTable; a ChartFailure if refused. */
 export function chartFor(engine: Engine, rows: readonly Row[], params: ChartParams): ChartSpec {
 	const roles: Record<string, string | string[]> = {};
 	for (const [id, value] of Object.entries(params.roles)) {
@@ -81,7 +81,7 @@ export function chartFor(engine: Engine, rows: readonly Row[], params: ChartPara
 		size,
 		...(params.id ? { id: params.id } : {}),
 	});
-	if (!result.ok) throw new Error(`${params.chart}: ${engine.specErrorMessage(result.error)}`);
+	if (!result.ok) throw failure(engine, params.chart, result.error);
 	return result.value;
 }
 
@@ -91,7 +91,7 @@ export function outputFor(engine: Engine, spec: ChartSpec, params: OutputParams)
 	const base = { chart: spec.chart, ...(id ? { id } : {}) };
 	if (params.output === 'svg') {
 		const result = engine.renderToSVG(spec, params.embedFonts ? { embedFonts: true } : {});
-		if (!result.ok) throw new Error(`${spec.chart}: ${engine.specErrorMessage(result.error)}`);
+		if (!result.ok) throw failure(engine, spec.chart, result.error);
 		const svg = result.value.svg;
 		return {
 			json: {
@@ -109,7 +109,7 @@ export function outputFor(engine: Engine, spec: ChartSpec, params: OutputParams)
 		...(interactive ? { interactive: true, script: { inline: engine.STANDALONE_SCRIPT } } : {}),
 		...(params.embedFonts ? { embedFonts: true } : {}),
 	});
-	if (!result.ok) throw new Error(`${spec.chart}: ${engine.specErrorMessage(result.error)}`);
+	if (!result.ok) throw failure(engine, spec.chart, result.error);
 	const html = result.value.html;
 	return {
 		json: { ...base, html, diagnostics: [...result.diagnostics] },

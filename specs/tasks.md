@@ -13,6 +13,7 @@
 - [x] **N8N-T-07** Errors, *Continue On Fail*, diagnostics. *N8N-REQ-007, N8N-REQ-008*
 - [x] **N8N-T-08** Tool use; README with three workflows (a chart into an email, into a file, into an HTML report); a local n8n run showing each node's output. *N8N-REQ-009, H-8*
 - [ ] **N8N-T-09** `publish.yml` with provenance; release `0.1.0`; submit through the Creator Portal. *N8N-Art. 3* — released as `0.1.1` (scanner passed); Creator Portal submission open.
+- [x] **N8N-T-10** Review against n8n's UX guidelines: error messages and descriptions (`messages.ts`), the catalog's copy rewritten (`scripts/copy.mjs`), release `0.1.2`. *N8N-REQ-001, N8N-REQ-002, N8N-REQ-007*
 
 ## Open questions
 
@@ -96,9 +97,26 @@ own, with no secret and no OIDC token, which the publish job needs. The node's o
 - Trusted Publishing is not exercised yet: the next tag is the first release without a token. If it
   fails at `npm publish`, nothing is published; check the Trusted Publisher with `npm trust list`.
 
+### UX guidelines (N8N-T-10, 0.1.2)
+
+- Reviewed against https://docs.n8n.io/integrations/creating-nodes/build/reference/ux-guidelines/.
+  Credentials, CRUD operations, Resource Locator, delete output and Simplify do not apply (no service).
+- Errors: `nodes/Silverpoint/messages.ts` turns a `SpecError` (role, chart, prop, size, other) or a
+  field without rows into a message naming the parameter by its display name ("The rows have no field
+  'losses', set in 'Value Field'"), `[Item X]` with rows from a field, and a description of what to
+  change; never the words error, problem, failure or mistake. `run.ts` throws `ChartFailure` /
+  `RowsFailure`. Fixed on the way: with rows from a field, a field without rows said `Item 0` for
+  every item.
+- Copy: `scripts/copy.mjs`, applied by `make-properties.mjs` to the catalog's summaries and option docs:
+  a prop in backticks becomes the parameter that sets it in single quotes (`sizeKey` → 'Size Field',
+  `scaleMax` → 'Scale Max'), the React-only "drillable through `rootId` and `onRootChange`" goes, ∝ is
+  spelled out, US spelling, boolean descriptions as "Whether to …; on by default"; the option `chrome`
+  is shown as *Frame*; field names in single quotes.
+- The local n8n run (`npm run local-run`) shows the new message under *Continue On Fail*.
+
 ### Open
 
-- N8N-T-09: submit `n8n-nodes-silverpoint@0.1.1` through the n8n Creator Portal.
+- N8N-T-09: submit `n8n-nodes-silverpoint@0.1.2` through the n8n Creator Portal.
 - N8N-OQ-1, to ask there (bundle size: the bundled engine is 1.1 MB of CommonJS, fonts and the
   standalone script included; the packed package is 489 kB, 1.7 MB unpacked).
 

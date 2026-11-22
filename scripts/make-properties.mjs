@@ -4,6 +4,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { copy, LABELS, whether } from './copy.mjs';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const FILE = `${root}nodes/Silverpoint/properties.generated.ts`;
@@ -14,15 +15,25 @@ const camel = (s) => pascal(s).replace(/^\w/, (c) => c.toLowerCase());
 const titleCase = (s) => s.replace(/(^|[\s-])(\w)/g, (m) => m.toUpperCase()).replace(/\bOf\b|\bAnd\b|\bOr\b|\bThe\b|\bA\b/g, (w, i) => (i === 0 ? w : w.toLowerCase()));
 const words = (s) => titleCase(s.replace(/[_-]+/g, ' '));
 const sentence = (s) => {
-  const t = s.replace(/`/g, '').replace(/\s*\(REQ-\d+(?:, REQ-\d+)*\)/g, '').trim();
+  const t = s.trim();
   return t.length === 0 ? '' : /[.!?]$/.test(t) ? t : `${t}.`;
 };
 const byName = (a, b) => a.name.localeCompare(b.name);
 const FAMILY = (f) => words(f);
 
-function optionProperty(option) {
-  const base = { displayName: titleCase(option.label), name: option.name };
-  const description = sentence(option.doc);
+/** The display name of what sets `name` on `chart`: a role's field parameter or an option. */
+const nameOf = (chart) => (name) => {
+  const role = chart?.roles.find((r) => `${r.id}Key` === name || r.id === name);
+  if (role) return `${titleCase(role.label)} Field${role.multiple ? 's' : ''}`;
+  const option = [...(chart?.options ?? []), ...catalog.common].find((o) => o.name === name);
+  return option ? optionLabel(option) : undefined;
+};
+const optionLabel = (option) => LABELS[option.name] ?? titleCase(option.label);
+
+function optionProperty(option, chart) {
+  const base = { displayName: optionLabel(option), name: option.name };
+  const text = option.doc ? copy(option.doc, nameOf(chart)) : '';
+  const description = sentence(text);
   if (option.kind === 'enum') {
     return {
       ...base,
@@ -32,7 +43,7 @@ function optionProperty(option) {
       ...(description ? { description } : {}),
     };
   }
-  if (option.kind === 'boolean') return { ...base, type: 'boolean', default: option.default ?? false, ...(description ? { description: description.startsWith('Whether') ? description : `Whether: ${description}` } : { description: `Whether to use ${option.label.toLowerCase()}` }) };
+  if (option.kind === 'boolean') return { ...base, type: 'boolean', default: option.default ?? false, description: sentence(whether(text.replace(/\.$/, ''), option.label)) };
   if (option.kind === 'number') return { ...base, type: 'number', default: option.default ?? 0, ...(description ? { description } : {}) };
   return { ...base, type: 'string', default: option.default ?? '', ...(description ? { description } : {}) };
 }
@@ -46,9 +57,9 @@ function chartsPart() {
       name: 'chart',
       type: 'options',
       noDataExpression: true,
-      options: bindable.map((c) => ({ name: `${FAMILY(c.family)}: ${titleCase(c.title)}`, value: c.slug, description: c.summary || c.title })).sort(byName),
+      options: bindable.map((c) => ({ name: `${FAMILY(c.family)}: ${titleCase(c.title)}`, value: c.slug, description: copy(c.summary || c.title, nameOf(c)) })).sort(byName),
       default: 'bar-chart',
-      description: 'The silverpoint chart to draw; the list is the pinned host catalog',
+      description: 'The chart to draw, grouped by family',
     },
   ];
   for (const chart of bindable) {
@@ -68,8 +79,8 @@ function chartsPart() {
         displayOptions: { show: { chart: [chart.slug] } },
       });
     }
-    const own = chart.options.map(optionProperty).sort((a, b) => a.displayName.localeCompare(b.displayName));
-    const common = catalog.common.filter((o) => !chart.options.some((x) => x.name === o.name)).map(optionProperty);
+    const own = chart.options.map((o) => optionProperty(o, chart)).sort((a, b) => a.displayName.localeCompare(b.displayName));
+    const common = catalog.common.filter((o) => !chart.options.some((x) => x.name === o.name)).map((o) => optionProperty(o, chart));
     properties.push({
       displayName: 'Options',
       name: `${key}Options`,

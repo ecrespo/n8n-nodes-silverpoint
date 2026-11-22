@@ -19,7 +19,9 @@ describe('generated properties', () => {
 		expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
 		const line = options.find((o) => o.value === 'line-chart');
 		expect(line.name).toMatch(/^Lines: Line Chart$/);
-		expect(line.description).toBe(catalog.charts.find((c) => c.slug === 'line-chart').summary.replace(/\.$/, ''));
+		expect(line.description).toBe(
+			catalog.charts.find((c) => c.slug === 'line-chart').summary.replace(/\.$/, ''),
+		);
 	});
 	test('N8N-REQ-002 · one field-name parameter per role, required marked, shown for its chart only', () => {
 		for (const chart of bindable) {
