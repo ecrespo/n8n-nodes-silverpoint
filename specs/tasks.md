@@ -12,7 +12,7 @@
 - [x] **N8N-T-06** HTML outputs. *N8N-REQ-006*
 - [x] **N8N-T-07** Errors, *Continue On Fail*, diagnostics. *N8N-REQ-007, N8N-REQ-008*
 - [x] **N8N-T-08** Tool use; README with three workflows (a chart into an email, into a file, into an HTML report); a local n8n run showing each node's output. *N8N-REQ-009, H-8*
-- [ ] **N8N-T-09** `publish.yml` with provenance; release `0.1.0`; submit through the Creator Portal. *N8N-Art. 3* — released as `0.1.1` (scanner passed), then `0.1.2` through Trusted Publishing; Creator Portal submission open.
+- [ ] **N8N-T-09** `publish.yml` with provenance; release `0.1.0`; submit through the Creator Portal. *N8N-Art. 3* — released as `0.1.1` (scanner passed), then `0.1.2` through Trusted Publishing; submitted to the Creator Portal (2026-11-22), in review.
 - [x] **N8N-T-10** Review against n8n's UX guidelines: error messages and descriptions (`messages.ts`), the catalog's copy rewritten (`scripts/copy.mjs`), release `0.1.2`. *N8N-REQ-001, N8N-REQ-002, N8N-REQ-007*
 
 ## Open questions
@@ -140,8 +140,10 @@ info (110 kB) out of the tarball, from the next release on.
 
 ### Open
 
-- N8N-T-09: submit `n8n-nodes-silverpoint@0.1.2` through the n8n Creator Portal (the maintainer's
-  creator account is set up).
+- N8N-T-09: `n8n-nodes-silverpoint` (0.1.2) submitted through the n8n Creator Portal on 2026-11-22
+  (creators.n8n.io/nodes/n8n-nodes-silverpoint): automated review in progress, then manual review
+  (up to 4 weeks, by email), then approved for publish. Close N8N-T-09 on approval; answer reviewers'
+  findings with a new release (tag `X.Y.Z` on `main`).
 - N8N-OQ-1, to ask there (bundle size: the bundled engine is 1.1 MB of CommonJS, fonts and the
   standalone script included; 0.1.2 packs to 482 kB, 1.7 MB unpacked; without the build info, 452 kB and
   1.6 MB).
