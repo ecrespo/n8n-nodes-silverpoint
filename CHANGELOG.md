@@ -1,7 +1,9 @@
 # Changelog
 
-## Unreleased
+## 0.1.3 (2026-11-22)
 
+- Error messages no longer end in their own `[Item X]`: n8n already appends "[item N]" from the
+  error's item index, so the number showed twice.
 - The package no longer ships `dist/tsconfig.tsbuildinfo` (TypeScript's build info, 110 kB).
 - Published through npm Trusted Publishing (OIDC, no token) on Node 24, as 0.1.2 was.
 

@@ -2,9 +2,17 @@
 // package, installs it into a throw-away n8n home (as Settings → Community Nodes would), imports
 // examples/local-run.workflow.json, runs it with `n8n execute` in the official image and prints each
 // Silverpoint node's output (long markup shortened). Needs Docker; run `npm run build` first.
-//   node scripts/local-run.mjs [--image docker.n8n.io/n8nio/n8n:stable] [--keep]
+//   node scripts/local-run.mjs [--image docker.n8n.io/n8nio/n8n:stable] [--workflow examples/demo.workflow.json]
 import { execFileSync } from 'node:child_process';
-import { copyFileSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import {
+	copyFileSync,
+	mkdirSync,
+	mkdtempSync,
+	readdirSync,
+	readFileSync,
+	rmSync,
+	writeFileSync,
+} from 'node:fs';
 import { tmpdir, userInfo } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -14,6 +22,12 @@ const args = process.argv.slice(2);
 const image = args.includes('--image')
 	? args[args.indexOf('--image') + 1]
 	: 'docker.n8n.io/n8nio/n8n:stable';
+const workflowFile = args.includes('--workflow')
+	? args[args.indexOf('--workflow') + 1]
+	: 'examples/local-run.workflow.json';
+// `n8n import:workflow` takes one workflow or an array of them; the first is the one run.
+const workflow = [JSON.parse(readFileSync(join(ROOT, workflowFile), 'utf8'))].flat()[0];
+const workflowId = workflow.id;
 const work = mkdtempSync(join(tmpdir(), 'sp-n8n-'));
 const home = join(work, 'home');
 const pkgDir = join(home, 'nodes/node_modules/n8n-nodes-silverpoint');
@@ -34,7 +48,7 @@ try {
 			dependencies: { 'n8n-nodes-silverpoint': '*' },
 		}),
 	);
-	copyFileSync(join(ROOT, 'examples/local-run.workflow.json'), join(work, 'wf.json'));
+	copyFileSync(join(ROOT, workflowFile), join(work, 'wf.json'));
 	const { uid, gid } = userInfo();
 	const stdout = execFileSync(
 		'docker',
@@ -53,7 +67,7 @@ try {
 			'sh',
 			image,
 			'-c',
-			'n8n import:workflow --input=/wf.json >/dev/null 2>&1 && n8n execute --id=spLocalRun0001 --rawOutput',
+			`n8n import:workflow --input=/wf.json >/dev/null 2>&1 && n8n execute --id=${workflowId} --rawOutput`,
 		],
 		{ encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] },
 	);
@@ -63,9 +77,8 @@ try {
 	console.log(`n8n run: ${run.status}${result.error ? ` — ${result.error.message}` : ''}`);
 	let failed = run.status !== 'success';
 	for (const [name, runs] of Object.entries(result.runData)) {
-		const node = run.workflowData?.nodes?.find((n) => n.name === name);
-		if (node && node.type !== 'n8n-nodes-silverpoint.silverpoint') continue;
-		if (!node && !name.startsWith('Chart')) continue;
+		const node = workflow.nodes.find((n) => n.name === name);
+		if (node?.type !== 'n8n-nodes-silverpoint.silverpoint') continue;
 		const [first] = runs;
 		console.log(`\n## ${name} (${first.executionStatus})`);
 		if (first.error) failed = true;

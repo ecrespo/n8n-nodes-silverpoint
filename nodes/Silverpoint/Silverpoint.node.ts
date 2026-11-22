@@ -177,14 +177,8 @@ export class Silverpoint implements INodeType {
 				}
 				out.push(item);
 			} catch (error) {
-				// N8N-REQ-007: [Item X] only when the chart is one item's (rows from a field).
-				const { message, description } = explain(error, {
-					chart,
-					roles,
-					source,
-					rowCount,
-					...(source === 'field' ? { itemIndex: index } : {}),
-				});
+				// N8N-REQ-007: n8n appends "[item N]" itself from itemIndex below.
+				const { message, description } = explain(error, { chart, roles, source, rowCount });
 				if (this.continueOnFail()) {
 					out.push({ json: { error: message }, pairedItem });
 					continue;

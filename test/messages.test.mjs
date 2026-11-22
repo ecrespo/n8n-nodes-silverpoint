@@ -1,6 +1,6 @@
 // N8N-REQ-007 (N8N-T-10): a failed binding or render, told as n8n's UX guidelines ask — what happened,
-// naming the parameter by its display name, `[Item X]` when the chart is one item's, and a description
-// of what to change; never the words error, problem, failure or mistake.
+// naming the parameter by its display name, and a description of what to change (n8n itself adds
+// "[item N]" from the error's itemIndex, so the message carries no item number); never the words error, problem, failure or mistake.
 import { describe, expect, test } from 'vitest';
 import { ChartFailure, explain, RowsFailure } from '../nodes/Silverpoint/messages';
 const ctx = {
@@ -32,9 +32,10 @@ describe('explain', () => {
 			"The rows have no fields 'team', 'losses', set in 'X Field', 'Value Field'",
 		);
 	});
-	test('N8N-REQ-007 · one chart per item: [Item X] at the end of the message', () => {
-		const out = check(explain(role([], ['losses']), { ...ctx, source: 'field', itemIndex: 1 }));
-		expect(out.message).toBe("The rows have no field 'losses', set in 'Value Field' [Item 1]");
+	test('N8N-REQ-007 · one chart per item: no item number in the message (n8n adds it)', () => {
+		const out = check(explain(role([], ['losses']), { ...ctx, source: 'field' }));
+		expect(out.message).toBe("The rows have no field 'losses', set in 'Value Field'");
+		expect(out.message).not.toMatch(/\[item/i);
 	});
 	test('N8N-REQ-007 · a missing role names its parameter', () => {
 		const out = check(explain(role(['value'], []), { ...ctx, roles: { x: 'team' } }));
@@ -43,9 +44,9 @@ describe('explain', () => {
 	});
 	test('N8N-REQ-007 · no rows at all', () => {
 		const out = check(
-			explain(role([], ['team', 'losses']), { ...ctx, source: 'field', rowCount: 0, itemIndex: 0 }),
+			explain(role([], ['team', 'losses']), { ...ctx, source: 'field', rowCount: 0 }),
 		);
-		expect(out.message).toBe('There are no rows to draw [Item 0]');
+		expect(out.message).toBe('There are no rows to draw');
 		expect(out.description).toMatch(/'Field'/);
 	});
 	test('N8N-REQ-007 · an option the chart does not declare', () => {
@@ -80,9 +81,9 @@ describe('explain', () => {
 	});
 	test('N8N-REQ-003 · a field without an array of rows', () => {
 		const out = check(
-			explain(new RowsFailure('data.rows'), { ...ctx, source: 'field', itemIndex: 3 }),
+			explain(new RowsFailure('data.rows'), { ...ctx, source: 'field' }),
 		);
-		expect(out.message).toBe("The field 'data.rows' does not hold an array of objects [Item 3]");
+		expect(out.message).toBe("The field 'data.rows' does not hold an array of objects");
 		expect(out.description).toMatch(/'Field'/);
 	});
 	test('N8N-REQ-007 · any other engine message is kept, with a description', () => {

@@ -78,7 +78,7 @@ describe('execute', () => {
 			node.execute.call(context(nested, { ...params, source: 'field', field: 'rows' })),
 		).rejects.toMatchObject({
 			name: 'NodeOperationError',
-			message: "The rows have no field 'wins', set in 'Value Field' [Item 1]",
+			message: "The rows have no field 'wins', set in 'Value Field'",
 			description: expect.stringMatching(/'Value Field'/),
 			context: { itemIndex: 1 },
 		});
@@ -88,7 +88,7 @@ describe('execute', () => {
 		await expect(
 			node.execute.call(context(nested, { ...params, source: 'field', field: 'rows' })),
 		).rejects.toMatchObject({
-			message: "The field 'rows' does not hold an array of objects [Item 1]",
+			message: "The field 'rows' does not hold an array of objects",
 			context: { itemIndex: 1 },
 		});
 	});
@@ -109,7 +109,7 @@ describe('execute', () => {
 			context(nested, { ...params, source: 'field', field: 'rows' }, true),
 		);
 		expect(out).toHaveLength(2);
-		expect(out[0].json.error).toBe("The rows have no field 'wins', set in 'Value Field' [Item 0]");
+		expect(out[0].json.error).toBe("The rows have no field 'wins', set in 'Value Field'");
 		expect(out[1].binary?.chart).toBeDefined();
 	});
 	test('N8N-REQ-007 · Continue On Fail with rows from items pairs the error with every item', async () => {

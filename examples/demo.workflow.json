@@ -1,0 +1,304 @@
+{
+  "id": "spDemoWorkflow01",
+  "name": "Silverpoint demo",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "521c629c-92eb-58a9-980f-1a38d9b1559a",
+      "name": "When clicking 'Execute workflow'",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { month: 'Jan', revenue: 42, cost: 30 },\n  { month: 'Feb', revenue: 48, cost: 31 },\n  { month: 'Mar', revenue: 45, cost: 33 },\n  { month: 'Apr', revenue: 56, cost: 35 },\n  { month: 'May', revenue: 61, cost: 36 },\n  { month: 'Jun', revenue: 67, cost: 38 },\n].map((json) => ({ json }));"
+      },
+      "id": "3607eb95-d351-557d-9d2d-d4fdbd9022cc",
+      "name": "Monthly Sales",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "{ \"rows\": [ {\"channel\":\"Online\",\"share\":46}, {\"channel\":\"Retail\",\"share\":31}, {\"channel\":\"Partners\",\"share\":15}, {\"channel\":\"Other\",\"share\":8} ] }",
+        "options": {}
+      },
+      "id": "c3c7b8db-e7c1-53c8-9552-a128b5f7dbab",
+      "name": "Channels",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "chart": "bar-chart",
+        "barChartX": "month",
+        "barChartValue": "revenue",
+        "barChartSecondary": "cost",
+        "barChartOptions": {
+          "title": "Revenue and cost",
+          "unit": "k€",
+          "footerLeft": "First half"
+        },
+        "ground": "silverpoint",
+        "substrate": "cream",
+        "appearance": {
+          "palette": "sepia"
+        },
+        "size": {
+          "width": 720,
+          "height": 360
+        },
+        "output": "svg",
+        "alsoAsText": true,
+        "embedFonts": true,
+        "chartId": "revenue"
+      },
+      "id": "46fd5ebd-1bcb-51ce-95cc-8bbce1192f90",
+      "name": "Bar Chart · SVG",
+      "type": "n8n-nodes-silverpoint.silverpoint",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -260
+      ]
+    },
+    {
+      "parameters": {
+        "chart": "area-chart",
+        "areaChartX": "month",
+        "areaChartValue": "revenue",
+        "areaChartOptions": {
+          "title": "Revenue"
+        },
+        "ground": "cyanotype",
+        "substrate": "prussian",
+        "output": "html"
+      },
+      "id": "442cafce-bc09-5407-af23-5cee1cd04714",
+      "name": "Area Chart · Cyanotype HTML",
+      "type": "n8n-nodes-silverpoint.silverpoint",
+      "typeVersion": 1,
+      "position": [
+        480,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "chart": "bar-chart",
+        "barChartX": "month",
+        "barChartValue": "profit",
+        "output": "svg"
+      },
+      "id": "b7c49978-febb-58e5-a86f-eb61e7be6605",
+      "name": "Missing Field · Continue On Fail",
+      "type": "n8n-nodes-silverpoint.silverpoint",
+      "typeVersion": 1,
+      "position": [
+        480,
+        60
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "chart": "donut-chart",
+        "source": "field",
+        "field": "rows",
+        "donutChartName": "channel",
+        "donutChartValue": "share",
+        "donutChartOptions": {
+          "title": "Sales by channel"
+        },
+        "appearance": {
+          "palette": "verdigris"
+        },
+        "output": "svg",
+        "chartId": "channels"
+      },
+      "id": "949e3956-4ab4-5ab8-bfea-1581d0417d2c",
+      "name": "Donut · Rows From a Field",
+      "type": "n8n-nodes-silverpoint.silverpoint",
+      "typeVersion": 1,
+      "position": [
+        480,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "path": "silverpoint-demo",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "b4ba0a78-8fad-5d8e-b066-e0ef08ecbbc4",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        520
+      ],
+      "webhookId": "silverpoint-demo"
+    },
+    {
+      "parameters": {
+        "jsCode": "return [\n  { month: 'Jan', revenue: 42, cost: 30 },\n  { month: 'Feb', revenue: 48, cost: 31 },\n  { month: 'Mar', revenue: 45, cost: 33 },\n  { month: 'Apr', revenue: 56, cost: 35 },\n  { month: 'May', revenue: 61, cost: 36 },\n  { month: 'Jun', revenue: 67, cost: 38 },\n].map((json) => ({ json }));"
+      },
+      "id": "1002aeb4-03b7-5914-9b7f-d7138c153327",
+      "name": "Monthly Sales (Webhook)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "chart": "line-chart",
+        "lineChartX": "month",
+        "lineChartValue": "revenue",
+        "lineChartSecondary": "cost",
+        "lineChartOptions": {
+          "title": "Revenue and cost, interactive"
+        },
+        "output": "interactiveHtml",
+        "embedFonts": true
+      },
+      "id": "b2b2f264-7579-55fa-a86d-2980d5a2ec40",
+      "name": "Line Chart · Interactive HTML",
+      "type": "n8n-nodes-silverpoint.silverpoint",
+      "typeVersion": 1,
+      "position": [
+        480,
+        520
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.html }}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "text/html; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "id": "b5aceced-246c-5f5f-a4a8-cc0d2e114cc4",
+      "name": "Respond With the Page",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        720,
+        520
+      ]
+    }
+  ],
+  "connections": {
+    "When clicking 'Execute workflow'": {
+      "main": [
+        [
+          {
+            "node": "Monthly Sales",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Channels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monthly Sales": {
+      "main": [
+        [
+          {
+            "node": "Bar Chart · SVG",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Area Chart · Cyanotype HTML",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Missing Field · Continue On Fail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Channels": {
+      "main": [
+        [
+          {
+            "node": "Donut · Rows From a Field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Monthly Sales (Webhook)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Monthly Sales (Webhook)": {
+      "main": [
+        [
+          {
+            "node": "Line Chart · Interactive HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Line Chart · Interactive HTML": {
+      "main": [
+        [
+          {
+            "node": "Respond With the Page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {}
+}
