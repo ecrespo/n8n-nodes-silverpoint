@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-silverpoint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "n8n community node that draws silverpoint charts from workflow items, as SVG or HTML.",
   "keywords": [
     "n8n-community-node-package",
@@ -32,6 +32,7 @@
     "generate": "node scripts/make-properties.mjs",
     "check": "node scripts/make-properties.mjs --check && node scripts/vendor.mjs --check",
     "conformance": "node scripts/conformance.mjs",
+    "scan": "npx -y @n8n/scan-community-package@0.44.0 .",
     "local-run": "node scripts/local-run.mjs",
     "test": "vitest run",
     "release": "n8n-node release",

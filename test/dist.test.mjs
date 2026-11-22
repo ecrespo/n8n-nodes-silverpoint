@@ -32,6 +32,24 @@ describe.runIf(built)('dist', () => {
 		}
 		expect(outside).toEqual([]);
 	});
+	test("N8N-REQ-010 · the package passes n8n's community-package scanner (its local scan)", () => {
+		// Without vitest's NODE_ENV=test: eslint-plugin-n8n-nodes-base reads it as its own test mode
+		// and then takes every file for a node file.
+		const env = { ...process.env };
+		delete env.NODE_ENV;
+		let out;
+		try {
+			out = execFileSync('npm', ['run', '--silent', 'scan'], {
+				encoding: 'utf8',
+				stdio: 'pipe',
+				env,
+			});
+		} catch (error) {
+			out = `${error.stdout}${error.stderr}`;
+		}
+		expect(out).not.toMatch(/violations|problems?\b|error/i);
+		expect(out).toMatch(/passed|no issues|✅/i);
+	}, 120_000);
 	test('N8N-REQ-011 · the conformance kit passes against the engine as loaded from dist', () => {
 		const out = execFileSync('node', ['scripts/conformance.mjs'], { encoding: 'utf8' });
 		expect(out).toMatch(/76 passed, 0 failed/);

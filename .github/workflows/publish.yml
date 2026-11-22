@@ -40,6 +40,8 @@ jobs:
       - run: npm run build
       - run: npm test
       - run: npm run conformance
+      # n8n's community-package scanner, as its local scan (N8N-REQ-010).
+      - run: npm run scan
       # RELEASE_MODE lets the package's prepublishOnly (`n8n-node prerelease`) through, as
       # `n8n-node release` does in CI. NODE_AUTH_TOKEN is empty under Trusted Publishing.
       - run: npm publish --provenance --access public
