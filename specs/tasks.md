@@ -12,7 +12,7 @@
 - [x] **N8N-T-06** HTML outputs. *N8N-REQ-006*
 - [x] **N8N-T-07** Errors, *Continue On Fail*, diagnostics. *N8N-REQ-007, N8N-REQ-008*
 - [x] **N8N-T-08** Tool use; README with three workflows (a chart into an email, into a file, into an HTML report); a local n8n run showing each node's output. *N8N-REQ-009, H-8*
-- [ ] **N8N-T-09** `publish.yml` with provenance; release `0.1.0`; submit through the Creator Portal. *N8N-Art. 3* — released as `0.1.1` (scanner passed); Creator Portal submission open.
+- [ ] **N8N-T-09** `publish.yml` with provenance; release `0.1.0`; submit through the Creator Portal. *N8N-Art. 3* — released as `0.1.1` (scanner passed), then `0.1.2` through Trusted Publishing; Creator Portal submission open.
 - [x] **N8N-T-10** Review against n8n's UX guidelines: error messages and descriptions (`messages.ts`), the catalog's copy rewritten (`scripts/copy.mjs`), release `0.1.2`. *N8N-REQ-001, N8N-REQ-002, N8N-REQ-007*
 
 ## Open questions
@@ -94,8 +94,7 @@ own, with no secret and no OIDC token, which the publish job needs. The node's o
   community-package scanner."); the `NPM_TOKEN` secret deleted; Trusted Publisher set (GitHub Actions,
   `ecrespo/n8n-nodes-silverpoint`, `publish.yml`, no environment); `@silverpoint:developers` given
   read-write on the package (an unscoped package stays owned by its user, not listed under the org).
-- Trusted Publishing is not exercised yet: the next tag is the first release without a token. If it
-  fails at `npm publish`, nothing is published; check the Trusted Publisher with `npm trust list`.
+- Trusted Publishing was first exercised with 0.1.2 (see below).
 
 ### UX guidelines (N8N-T-10, 0.1.2)
 
@@ -114,9 +113,36 @@ own, with no secret and no OIDC token, which the publish job needs. The node's o
   is shown as *Frame*; field names in single quotes.
 - The local n8n run (`npm run local-run`) shows the new message under *Continue On Fail*.
 
+### 0.1.2 published through Trusted Publishing (2026-11-22)
+
+The first release without a token took five runs of `publish.yml`; nothing was published until the last.
+
+1. `ENEEDAUTH` at `npm publish` (tag `0.1.2` on `f0e5913`, run 45063284067, and two re-runs): npm
+   tried the OIDC exchange and fell back to the empty token. `npm trust list` showed no configuration:
+   the Trusted Publisher form had not been saved.
+2. PR #5: `node-version: '24'` in the publish job (`lts/*` had moved to Node 26, whose npm the next
+   step swapped for 11.x), no `NODE_AUTH_TOKEN`, `npm publish --loglevel verbose` (npm logs why an OIDC
+   exchange is refused only at that level). Tag `0.1.2` moved to the merge, `db9278d` (nothing had been
+   published under it). Run 45071255545: `oidc … exchange error - package not found` — the saved
+   configuration read `repository: ecrespo/ecrespo` (the owner typed in the repository field).
+3. Recreated with `repository: ecrespo/n8n-nodes-silverpoint`: the exchange succeeded, then `E403 OIDC
+   permission denied for this action` — its permissions were `stage publish` only, which allows
+   `npm stage publish` (a staged version, approved later with 2FA), not `npm publish`.
+4. Revoked (`npm trust revoke --id=…`; a second configuration a token could match is refused with
+   `E409`) and created with `npm trust github n8n-nodes-silverpoint --file publish.yml --repo
+   ecrespo/n8n-nodes-silverpoint --allow-publish --allow-stage-publish`: `permissions: publish, stage
+   publish`. Re-run: `+ n8n-nodes-silverpoint@0.1.2`, provenance SLSA v1, `latest` is `0.1.2`.
+
+`npx @n8n/scan-community-package@0.44.0 n8n-nodes-silverpoint@0.1.2`: *has passed all security checks*
+(attested source `github.com/ecrespo/n8n-nodes-silverpoint@db9278d`). Every tag `X.Y.Z` on `main` now
+publishes without a secret. Since then, `!dist/tsconfig.tsbuildinfo` in `files` keeps TypeScript's build
+info (110 kB) out of the tarball, from the next release on.
+
 ### Open
 
-- N8N-T-09: submit `n8n-nodes-silverpoint@0.1.2` through the n8n Creator Portal.
+- N8N-T-09: submit `n8n-nodes-silverpoint@0.1.2` through the n8n Creator Portal (the maintainer's
+  creator account is set up).
 - N8N-OQ-1, to ask there (bundle size: the bundled engine is 1.1 MB of CommonJS, fonts and the
-  standalone script included; the packed package is 489 kB, 1.7 MB unpacked).
+  standalone script included; 0.1.2 packs to 482 kB, 1.7 MB unpacked; without the build info, 452 kB and
+  1.6 MB).
 

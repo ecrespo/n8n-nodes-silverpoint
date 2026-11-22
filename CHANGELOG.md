@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- The package no longer ships `dist/tsconfig.tsbuildinfo` (TypeScript's build info, 110 kB).
+- Published through npm Trusted Publishing (OIDC, no token) on Node 24, as 0.1.2 was.
+
 ## 0.1.2 (2026-11-22)
 
 - Error messages follow n8n's UX guidelines: they name the parameter to fix by its label ("The rows
