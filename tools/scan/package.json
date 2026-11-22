@@ -1,0 +1,8 @@
+{
+  "name": "n8n-nodes-silverpoint-scan",
+  "private": true,
+  "description": "n8n's community-package scanner, locked and apart from the package's own node_modules (it brings TypeScript 6, which would take .bin/tsc).",
+  "devDependencies": {
+    "@n8n/scan-community-package": "0.44.0"
+  }
+}

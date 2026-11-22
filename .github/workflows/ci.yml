@@ -23,7 +23,9 @@ jobs:
       - run: npm run check
       - run: npm run lint
       - run: npm run build
+      # n8n's community-package scanner (N8N-REQ-010), locked in tools/scan; the dist test runs it.
+      - run: npm run scan:install
       - run: npm test
+        env:
+          SP_SCAN: '1'
       - run: npm run conformance
-      # n8n's community-package scanner, as its local scan (N8N-REQ-010).
-      - run: npm run scan

@@ -32,11 +32,12 @@
     "generate": "node scripts/make-properties.mjs",
     "check": "node scripts/make-properties.mjs --check && node scripts/vendor.mjs --check",
     "conformance": "node scripts/conformance.mjs",
-    "scan": "npx -y @n8n/scan-community-package@0.44.0 .",
+    "scan": "node tools/scan/node_modules/@n8n/scan-community-package/dist/cli.js .",
     "local-run": "node scripts/local-run.mjs",
     "test": "vitest run",
     "release": "n8n-node release",
-    "prepublishOnly": "n8n-node prerelease"
+    "prepublishOnly": "n8n-node prerelease",
+    "scan:install": "npm ci --ignore-scripts --prefix tools/scan"
   },
   "files": [
     "dist"

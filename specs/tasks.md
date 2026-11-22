@@ -77,9 +77,10 @@ conformance kit, code the node never runs (the scanner disables inline `eslint-d
 test-first: `scripts/bundle-engine.mjs` exports only `renderToHTML`, `renderToSVG`,
 `specErrorMessage`, `specFromTable`, `validateSpec`, `version` and the standalone script's text, so
 esbuild drops the rest; `scripts/conformance.mjs` runs the kit's runner with `node:crypto` over the
-same cases (76 passed); `test/dist.test.mjs` runs `npm run scan` (pinned `@n8n/scan-community-package`
-0.44.0 through `npx`; not a devDependency, since it brings TypeScript 6, which takes `.bin/tsc`), and
-CI and `publish.yml` run it before publishing. The node's output is unchanged (`npm run local-run`).
+same cases (76 passed); `npm run scan` runs `@n8n/scan-community-package` 0.44.0 from `tools/scan`, its own locked install
+(`npm run scan:install`; not a devDependency, since it brings TypeScript 6, which takes `.bin/tsc`).
+`test/dist.test.mjs` runs it when `SP_SCAN` is set (CI sets it); `publish.yml` runs it in a job of its
+own, with no secret and no OIDC token, which the publish job needs. The node's output is unchanged (`npm run local-run`).
 
 ### Open
 
