@@ -1,13 +1,11 @@
 # Publishes to npm on a version tag (0.1.0, 1.2.3, 2.0.0-rc.1), with a provenance statement
 # (N8N-Art. 3), always from this workflow, never from a machine.
 #
-# npm authentication, one of:
-#   A. Trusted Publishing (OIDC, no secret): on npmjs.com, the package's Settings → Trusted Publisher →
-#      GitHub Actions, owner `ecrespo`, repository `n8n-nodes-silverpoint`, workflow `publish.yml`.
-#      npm offers it only for a package that already exists, so use B for the first release.
-#   B. A granular access token in the repository secret NPM_TOKEN (read and write, this package or
-#      all packages for the first release). Delete the secret once A is set up.
-# Provenance is signed by GitHub's OIDC token either way (`id-token: write`).
+# npm authentication: Trusted Publishing (OIDC, no secret). On npmjs.com, the package's Settings →
+# Trusted Publisher → GitHub Actions, owner `ecrespo`, repository `n8n-nodes-silverpoint`, workflow
+# `publish.yml`, no environment. (0.1.0 and 0.1.1 were published with a token, since npm offers
+# Trusted Publishing only for a package that already exists.) Provenance is signed by GitHub's OIDC
+# token (`id-token: write`).
 #
 # Two jobs: `scan` runs n8n's community-package scanner (third-party code, locked in tools/scan) with
 # no secret and no OIDC token; `publish` runs only after it passes and only the package's own locked
@@ -45,7 +43,8 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: 'lts/*'
+          # Pinned: `lts/*` moved to Node 26, whose npm the step below then swapped for 11.x.
+          node-version: '24'
           cache: npm
           registry-url: https://registry.npmjs.org
       - name: The tag is the package's version
@@ -53,7 +52,7 @@ jobs:
           version=$(node -p "require('./package.json').version")
           [ "$version" = "$GITHUB_REF_NAME" ] || { echo "tag $GITHUB_REF_NAME is not package.json's $version"; exit 1; }
       # Trusted Publishing needs npm 11.5.1 or later.
-      - run: npm install -g npm@^11.5.1
+      - run: npm install -g npm@^11.5.1 && npm --version
       # n8n-workflow pulls isolated-vm, whose native build the node never uses.
       - run: npm ci --ignore-scripts
       - run: npm run check
@@ -62,8 +61,8 @@ jobs:
       - run: npm test
       - run: npm run conformance
       # RELEASE_MODE lets the package's prepublishOnly (`n8n-node prerelease`) through, as
-      # `n8n-node release` does in CI. NODE_AUTH_TOKEN is empty under Trusted Publishing.
-      - run: npm publish --provenance --access public
+      # `n8n-node release` does in CI. Authentication is Trusted Publishing (OIDC): no token. The
+      # verbose log keeps npm's `oidc` lines, which say why an exchange was refused.
+      - run: npm publish --provenance --access public --loglevel verbose
         env:
           RELEASE_MODE: 'true'
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
