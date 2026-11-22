@@ -48,6 +48,16 @@ describe.runIf(built)('dist', () => {
 		},
 		120_000,
 	);
+	test('N8N-REQ-010 · the tarball ships the built node only: no TypeScript build info', () => {
+		const [pack] = JSON.parse(
+			execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], {
+				encoding: 'utf8',
+			}),
+		);
+		const files = pack.files.map((f) => f.path);
+		expect(files).toContain('dist/nodes/Silverpoint/Silverpoint.node.js');
+		expect(files.filter((f) => f.endsWith('.tsbuildinfo'))).toEqual([]);
+	});
 	test('N8N-REQ-011 · the conformance kit passes against the engine as loaded from dist', () => {
 		const out = execFileSync('node', ['scripts/conformance.mjs'], { encoding: 'utf8' });
 		expect(out).toMatch(/76 passed, 0 failed/);

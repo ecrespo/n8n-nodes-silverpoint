@@ -40,7 +40,8 @@
     "scan:install": "npm ci --ignore-scripts --prefix tools/scan"
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/tsconfig.tsbuildinfo"
   ],
   "n8n": {
     "n8nNodesApiVersion": 1,
