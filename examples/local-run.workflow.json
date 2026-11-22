@@ -1,0 +1,130 @@
+[
+	{
+		"id": "spLocalRun0001",
+		"name": "Silverpoint local run",
+		"active": false,
+		"settings": { "executionOrder": "v1" },
+		"nodes": [
+			{
+				"id": "t",
+				"name": "Start",
+				"type": "n8n-nodes-base.manualTrigger",
+				"typeVersion": 1,
+				"position": [0, 0],
+				"parameters": {}
+			},
+			{
+				"id": "r",
+				"name": "Rows",
+				"type": "n8n-nodes-base.set",
+				"typeVersion": 3.4,
+				"position": [200, 0],
+				"parameters": {
+					"mode": "raw",
+					"jsonOutput": "{ \"rows\": [ {\"team\":\"Ash\",\"wins\":12}, {\"team\":\"Birch\",\"wins\":9}, {\"team\":\"Cedar\",\"wins\":15} ] }"
+				}
+			},
+			{
+				"id": "s",
+				"name": "Split Rows",
+				"type": "n8n-nodes-base.splitOut",
+				"typeVersion": 1,
+				"position": [400, 0],
+				"parameters": { "fieldToSplitOut": "rows", "options": {} }
+			},
+			{
+				"id": "a",
+				"name": "Chart SVG",
+				"type": "n8n-nodes-silverpoint.silverpoint",
+				"typeVersion": 1,
+				"position": [600, -200],
+				"parameters": {
+					"chart": "bar-chart",
+					"barChartX": "team",
+					"barChartValue": "wins",
+					"barChartOptions": { "title": "Wins" },
+					"output": "svg",
+					"alsoAsText": true,
+					"chartId": "wins"
+				}
+			},
+			{
+				"id": "b",
+				"name": "Chart HTML",
+				"type": "n8n-nodes-silverpoint.silverpoint",
+				"typeVersion": 1,
+				"position": [600, 0],
+				"parameters": {
+					"chart": "bar-chart",
+					"barChartX": "team",
+					"barChartValue": "wins",
+					"output": "html"
+				}
+			},
+			{
+				"id": "c",
+				"name": "Chart Interactive",
+				"type": "n8n-nodes-silverpoint.silverpoint",
+				"typeVersion": 1,
+				"position": [600, 200],
+				"parameters": {
+					"chart": "bar-chart",
+					"barChartX": "team",
+					"barChartValue": "wins",
+					"output": "interactiveHtml",
+					"embedFonts": true
+				}
+			},
+			{
+				"id": "d",
+				"name": "Chart From Field",
+				"type": "n8n-nodes-silverpoint.silverpoint",
+				"typeVersion": 1,
+				"position": [400, 300],
+				"parameters": {
+					"chart": "line-chart",
+					"source": "field",
+					"field": "rows",
+					"lineChartX": "team",
+					"lineChartValue": "wins",
+					"output": "svg"
+				}
+			},
+			{
+				"id": "e",
+				"name": "Chart Error",
+				"type": "n8n-nodes-silverpoint.silverpoint",
+				"typeVersion": 1,
+				"position": [600, 400],
+				"onError": "continueRegularOutput",
+				"parameters": {
+					"chart": "bar-chart",
+					"barChartX": "team",
+					"barChartValue": "losses",
+					"output": "svg"
+				}
+			}
+		],
+		"connections": {
+			"Start": { "main": [[{ "node": "Rows", "type": "main", "index": 0 }]] },
+			"Rows": {
+				"main": [
+					[
+						{ "node": "Split Rows", "type": "main", "index": 0 },
+						{ "node": "Chart From Field", "type": "main", "index": 0 }
+					]
+				]
+			},
+			"Split Rows": {
+				"main": [
+					[
+						{ "node": "Chart SVG", "type": "main", "index": 0 },
+						{ "node": "Chart HTML", "type": "main", "index": 0 },
+						{ "node": "Chart Interactive", "type": "main", "index": 0 },
+						{ "node": "Chart Error", "type": "main", "index": 0 }
+					]
+				]
+			}
+		}
+	}
+]

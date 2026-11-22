@@ -1,0 +1,48 @@
+# Publishes to npm on a version tag (0.1.0, 1.2.3, 2.0.0-rc.1), with a provenance statement
+# (N8N-Art. 3), always from this workflow, never from a machine.
+#
+# npm authentication, one of:
+#   A. Trusted Publishing (OIDC, no secret): on npmjs.com, the package's Settings → Trusted Publisher →
+#      GitHub Actions, owner `ecrespo`, repository `n8n-nodes-silverpoint`, workflow `publish.yml`.
+#      npm offers it only for a package that already exists, so use B for the first release.
+#   B. A granular access token in the repository secret NPM_TOKEN (read and write, this package or
+#      all packages for the first release). Delete the secret once A is set up.
+# Provenance is signed by GitHub's OIDC token either way (`id-token: write`).
+name: Publish
+
+on:
+  push:
+    tags: ['*.*.*']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 'lts/*'
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - name: The tag is the package's version
+        run: |
+          version=$(node -p "require('./package.json').version")
+          [ "$version" = "$GITHUB_REF_NAME" ] || { echo "tag $GITHUB_REF_NAME is not package.json's $version"; exit 1; }
+      # Trusted Publishing needs npm 11.5.1 or later.
+      - run: npm install -g npm@^11.5.1
+      # n8n-workflow pulls isolated-vm, whose native build the node never uses.
+      - run: npm ci --ignore-scripts
+      - run: npm run check
+      - run: npm run lint
+      - run: npm run build
+      - run: npm test
+      - run: npm run conformance
+      # RELEASE_MODE lets the package's prepublishOnly (`n8n-node prerelease`) through, as
+      # `n8n-node release` does in CI. NODE_AUTH_TOKEN is empty under Trusted Publishing.
+      - run: npm publish --provenance --access public
+        env:
+          RELEASE_MODE: 'true'
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
