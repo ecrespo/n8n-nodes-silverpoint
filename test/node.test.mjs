@@ -78,8 +78,26 @@ describe('execute', () => {
 			node.execute.call(context(nested, { ...params, source: 'field', field: 'rows' })),
 		).rejects.toMatchObject({
 			name: 'NodeOperationError',
-			message: expect.stringMatching(/the table has no column "wins"/),
+			message: "The rows have no field 'wins', set in 'Value Field' [Item 1]",
+			description: expect.stringMatching(/'Value Field'/),
 			context: { itemIndex: 1 },
+		});
+	});
+	test('N8N-REQ-003 · a field without rows names the item it is in, not the first', async () => {
+		const nested = [{ json: { rows: items.map((i) => i.json) } }, { json: { rows: 3 } }];
+		await expect(
+			node.execute.call(context(nested, { ...params, source: 'field', field: 'rows' })),
+		).rejects.toMatchObject({
+			message: "The field 'rows' does not hold an array of objects [Item 1]",
+			context: { itemIndex: 1 },
+		});
+	});
+	test('N8N-REQ-007 · a chart the list does not offer points back to the list', async () => {
+		await expect(
+			node.execute.call(context(items, { ...params, chart: 'nope' })),
+		).rejects.toMatchObject({
+			message: "'nope' is not a chart this node can draw",
+			description: expect.stringMatching(/'Chart'/),
 		});
 	});
 	test("N8N-REQ-007 · Continue On Fail emits the error as the item's JSON", async () => {
@@ -91,7 +109,7 @@ describe('execute', () => {
 			context(nested, { ...params, source: 'field', field: 'rows' }, true),
 		);
 		expect(out).toHaveLength(2);
-		expect(out[0].json.error).toMatch(/no column "wins"/);
+		expect(out[0].json.error).toBe("The rows have no field 'wins', set in 'Value Field' [Item 0]");
 		expect(out[1].binary?.chart).toBeDefined();
 	});
 	test('N8N-REQ-007 · Continue On Fail with rows from items pairs the error with every item', async () => {
@@ -99,7 +117,7 @@ describe('execute', () => {
 			context(items, { ...params, barChartValue: 'losses' }, true),
 		);
 		expect(out).toHaveLength(1);
-		expect(out[0].json.error).toMatch(/no column "losses"/);
+		expect(out[0].json.error).toBe("The rows have no field 'losses', set in 'Value Field'");
 		expect(out[0].pairedItem).toEqual([{ item: 0 }, { item: 1 }]);
 	});
 });

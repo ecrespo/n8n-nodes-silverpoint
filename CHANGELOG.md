@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2 (2026-11-22)
+
+- Error messages follow n8n's UX guidelines: they name the parameter to fix by its label ("The rows
+  have no field 'losses', set in 'Value Field'"), end in `[Item X]` when the chart is one item's, and
+  come with a description of what to change. With rows from a field, a field without rows now names
+  its own item, not always item 0.
+- Clearer parameter copy: no code names in the chart and option descriptions (props shown as the
+  parameter that sets them), US spelling, boolean options described as "Whether to …", the *Chrome*
+  option shown as *Frame*. Parameter names and values are unchanged, so workflows keep working.
+
 ## 0.1.1 (2026-11-22)
 
 - The bundled engine carries only what the node calls (the DOM-free render and `specFromTable`); the

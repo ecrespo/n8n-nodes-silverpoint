@@ -24,8 +24,9 @@ In n8n: *Settings → Community Nodes → Install*, package `n8n-nodes-silverpoi
 | **Embed Fonts** | Embeds EB Garamond, so the output draws the same anywhere. |
 
 Each output item carries `chart`, `id` and the render's warnings under `diagnostics`. A missing role, an
-unknown field or an unknown option stops the node with the reason and the item index; with *Continue On
-Fail* the reason becomes the item's `error`.
+unknown field or an unknown option stops the node with a message naming the parameter to fix (and
+`[Item X]` when the chart is one item's) and a description of what to change; with *Continue On Fail*
+the message becomes the item's `error`.
 
 The node is usable as an AI-agent tool: a model passes rows and, per role, a field name.
 

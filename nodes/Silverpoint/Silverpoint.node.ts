@@ -13,6 +13,7 @@ import {
 	chartProperties,
 	ENGINE_VERSION,
 } from './properties.generated';
+import { explain, unknownChart } from './messages';
 import { chartFor, type OutputParams, outputFor, rowsFor } from './run';
 
 export class Silverpoint implements INodeType {
@@ -91,7 +92,7 @@ export class Silverpoint implements INodeType {
 				name: 'alsoAsText',
 				type: 'boolean',
 				default: false,
-				description: 'Whether to also put the SVG markup in the JSON field "svg"',
+				description: "Whether to also put the SVG markup in the JSON field 'svg'",
 				displayOptions: { show: { output: ['svg'] } },
 			},
 			{
@@ -125,22 +126,17 @@ export class Silverpoint implements INodeType {
 			const index = group.index;
 			const pairedItem =
 				source === 'items' ? group.paired.map((item) => ({ item })) : { item: index };
+			let chart = '';
+			const roles: Record<string, string> = {};
+			let rowCount = 0;
 			try {
 				const field =
 					source === 'field' ? (this.getNodeParameter('field', index) as string) : undefined;
 				const tables = rowsFor(source === 'items' ? items : [items[index]], { source, field });
-				const chart = this.getNodeParameter('chart', index) as string;
+				rowCount = tables[0].length;
+				chart = this.getNodeParameter('chart', index) as string;
 				const plan = CHART_PARAMS[chart];
-				if (!plan) {
-					throw new NodeOperationError(
-						this.getNode(),
-						`"${chart}" is not a chart of host catalog ${ENGINE_VERSION}.`,
-						{
-							itemIndex: index,
-						},
-					);
-				}
-				const roles: Record<string, string> = {};
+				if (!plan) throw unknownChart(chart, ENGINE_VERSION);
 				for (const role of plan.roles)
 					roles[role.id] = this.getNodeParameter(role.param, index, '') as string;
 				const ground = this.getNodeParameter('ground', index) as string;
@@ -181,12 +177,22 @@ export class Silverpoint implements INodeType {
 				}
 				out.push(item);
 			} catch (error) {
-				const message = error instanceof Error ? error.message : String(error);
+				// N8N-REQ-007: [Item X] only when the chart is one item's (rows from a field).
+				const { message, description } = explain(error, {
+					chart,
+					roles,
+					source,
+					rowCount,
+					...(source === 'field' ? { itemIndex: index } : {}),
+				});
 				if (this.continueOnFail()) {
 					out.push({ json: { error: message }, pairedItem });
 					continue;
 				}
-				throw new NodeOperationError(this.getNode(), message, { itemIndex: index });
+				throw new NodeOperationError(this.getNode(), message, {
+					itemIndex: index,
+					...(description ? { description } : {}),
+				});
 			}
 		}
 		return [out];
