@@ -1,5 +1,5 @@
 // N8N-DD-01 (as implemented): esbuild bundles the vendored module build of @silverpoint/embed — the
-// main entry, specFromTable and conformance, with EB Garamond — and the standalone script's text (for
+// DOM-free render and specFromTable, with EB Garamond, tree-shaken to what the node calls — and the standalone script's text (for
 // Interactive HTML) into one CommonJS file the node requires. Written to nodes/Silverpoint/engine/
 // (for the tests and tsc) and, after `n8n-node build`, copied into dist by scripts/after-build.mjs.
 import { build } from 'esbuild';
@@ -14,7 +14,9 @@ const { version } = JSON.parse(readFileSync(`${root}vendor/host-catalog.json`, '
 await build({
   stdin: {
     contents: [
-      "export * from './vendor/silverpoint-embed.full.mjs';",
+      // Only what the node calls: the browser client (<silverpoint-chart>, mount) and the conformance
+      // kit (Web Crypto) stay out, so dist passes the community-package scanner (N8N-REQ-010).
+      "export { renderToHTML, renderToSVG, specErrorMessage, specFromTable, validateSpec, version } from './vendor/silverpoint-embed.full.mjs';",
       "export { default as STANDALONE_SCRIPT } from './vendor/silverpoint-embed.full.js';",
     ].join('\n'),
     resolveDir: root,

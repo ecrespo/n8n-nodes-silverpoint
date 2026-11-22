@@ -68,6 +68,20 @@ check`, `lint`, `build`, `npx vitest run` — 24 passed, `npm run conformance` �
   inlined), Line chart from a field, and `bar-chart: the table has no column "losses".` as the item's
   `error` under *Continue (regular output)*.
 
+### 0.1.0 published, the scanner refuses it; 0.1.1 (2026-11-22)
+
+`0.1.0` was published from `publish.yml` with provenance (SLSA v1). `npx @n8n/scan-community-package
+n8n-nodes-silverpoint` then failed it: 4 `no-restricted-globals` errors in the bundled engine —
+`setTimeout`/`clearTimeout` in the `<silverpoint-chart>` element and `globalThis.crypto` in the
+conformance kit, code the node never runs (the scanner disables inline `eslint-disable`). Fixed
+test-first: `scripts/bundle-engine.mjs` exports only `renderToHTML`, `renderToSVG`,
+`specErrorMessage`, `specFromTable`, `validateSpec`, `version` and the standalone script's text, so
+esbuild drops the rest; `scripts/conformance.mjs` runs the kit's runner with `node:crypto` over the
+same cases (76 passed); `npm run scan` runs `@n8n/scan-community-package` 0.44.0 from `tools/scan`, its own locked install
+(`npm run scan:install`; not a devDependency, since it brings TypeScript 6, which takes `.bin/tsc`).
+`test/dist.test.mjs` runs it when `SP_SCAN` is set (CI sets it); `publish.yml` runs it in a job of its
+own, with no secret and no OIDC token, which the publish job needs. The node's output is unchanged (`npm run local-run`).
+
 ### Open
 
 - N8N-OQ-1, the Creator Portal question (bundle size: the bundled engine is 1.1 MB of CommonJS, the

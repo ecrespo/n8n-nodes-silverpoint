@@ -46,6 +46,8 @@ npm run generate     # nodes/Silverpoint/properties.generated.ts from vendor/hos
 npm run build        # the engine bundle, n8n-node build, the engine copied into dist
 npm test             # vitest (the dist tests run after a build)
 npm run conformance  # the library's conformance kit against the engine as loaded from dist
+npm run scan:install # once: n8n's community-package scanner, locked in tools/scan
+npm run scan         # its local scan (also in CI, and before publishing)
 npm run lint         # n8n-node lint, strict
 npm run check        # the generated file and the vendored engine are current
 ```

@@ -8,6 +8,10 @@
 #   B. A granular access token in the repository secret NPM_TOKEN (read and write, this package or
 #      all packages for the first release). Delete the secret once A is set up.
 # Provenance is signed by GitHub's OIDC token either way (`id-token: write`).
+#
+# Two jobs: `scan` runs n8n's community-package scanner (third-party code, locked in tools/scan) with
+# no secret and no OIDC token; `publish` runs only after it passes and only the package's own locked
+# tooling.
 name: Publish
 
 on:
@@ -15,7 +19,24 @@ on:
     tags: ['*.*.*']
 
 jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 'lts/*'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: npm run scan:install
+      # N8N-REQ-010: the scanner's local scan of the package about to be published.
+      - run: npm run scan
+
   publish:
+    needs: scan
     runs-on: ubuntu-latest
     permissions:
       id-token: write
