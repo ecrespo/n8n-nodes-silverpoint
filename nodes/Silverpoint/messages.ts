@@ -1,6 +1,6 @@
 // N8N-REQ-007: a failed binding or render told as n8n's UX guidelines ask — what happened, naming the
-// parameter by its display name, `[Item X]` when the chart is one item's, and a description of what to
-// change. N8N-Art. 2: it reads only its arguments and the generated parameters.
+// parameter by its display name, and a description of what to change. No item number: n8n appends
+// "[item N]" itself from the NodeOperationError's itemIndex. N8N-Art. 2: it reads only its arguments and the generated parameters.
 import type { SpecError } from './engine';
 import { CHART_PARAMS, chartProperties } from './properties.generated';
 
@@ -35,8 +35,6 @@ export interface ExplainContext {
 	readonly roles: Readonly<Record<string, string>>;
 	readonly source: 'items' | 'field';
 	readonly rowCount: number;
-	/** Set when the chart is drawn from one item (rows from a field). */
-	readonly itemIndex?: number;
 }
 
 export interface Explained {
@@ -163,18 +161,15 @@ function explainSpec(error: SpecError, engineMessage: string, ctx: ExplainContex
 
 /** The message and description for what was thrown while drawing one chart. */
 export function explain(thrown: unknown, ctx: ExplainContext): Explained {
-	let out: Explained;
 	if (thrown instanceof ChartFailure) {
-		out = explainSpec(thrown.specError, thrown.message.replace(/^[\w-]+: /, ''), ctx);
-	} else if (thrown instanceof RowsFailure) {
-		out = {
+		return explainSpec(thrown.specError, thrown.message.replace(/^[\w-]+: /, ''), ctx);
+	}
+	if (thrown instanceof RowsFailure) {
+		return {
 			message: `The field '${thrown.field}' does not hold an array of objects`,
 			description:
 				"Set 'Field' to the name of a field holding an array of objects, one per row; use dots for nested fields (e.g. data.rows).",
 		};
-	} else {
-		return { message: thrown instanceof Error ? thrown.message : String(thrown) };
 	}
-	const item = ctx.itemIndex === undefined ? '' : ` [Item ${ctx.itemIndex}]`;
-	return { ...out, message: `${out.message}${item}` };
+	return { message: thrown instanceof Error ? thrown.message : String(thrown) };
 }

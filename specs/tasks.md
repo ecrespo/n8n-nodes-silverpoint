@@ -113,6 +113,14 @@ own, with no secret and no OIDC token, which the publish job needs. The node's o
   is shown as *Frame*; field names in single quotes.
 - The local n8n run (`npm run local-run`) shows the new message under *Continue On Fail*.
 
+### 0.1.3: one item number, not two (2026-11-22)
+
+Recording the demo showed messages with rows from a field ending `… 'Value Field' [Item 1] [item 1]`:
+n8n's UI appends "[item N]" itself from the `NodeOperationError`'s `itemIndex`. `explain()` no longer
+adds its own; the index still reaches n8n. N8N-REQ-007 reworded. The tarball also drops
+`dist/tsconfig.tsbuildinfo`; the demo workflow is in `examples/demo.workflow.json`
+(`node scripts/local-run.mjs --workflow examples/demo.workflow.json`).
+
 ### 0.1.2 published through Trusted Publishing (2026-11-22)
 
 The first release without a token took five runs of `publish.yml`; nothing was published until the last.
