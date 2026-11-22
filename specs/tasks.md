@@ -12,7 +12,7 @@
 - [x] **N8N-T-06** HTML outputs. *N8N-REQ-006*
 - [x] **N8N-T-07** Errors, *Continue On Fail*, diagnostics. *N8N-REQ-007, N8N-REQ-008*
 - [x] **N8N-T-08** Tool use; README with three workflows (a chart into an email, into a file, into an HTML report); a local n8n run showing each node's output. *N8N-REQ-009, H-8*
-- [ ] **N8N-T-09** `publish.yml` with provenance; release `0.1.0`; submit through the Creator Portal. *N8N-Art. 3*
+- [ ] **N8N-T-09** `publish.yml` with provenance; release `0.1.0`; submit through the Creator Portal. *N8N-Art. 3* — released as `0.1.1` (scanner passed); Creator Portal submission open.
 
 ## Open questions
 
@@ -82,9 +82,23 @@ same cases (76 passed); `npm run scan` runs `@n8n/scan-community-package` 0.44.0
 `test/dist.test.mjs` runs it when `SP_SCAN` is set (CI sets it); `publish.yml` runs it in a job of its
 own, with no secret and no OIDC token, which the publish job needs. The node's output is unchanged (`npm run local-run`).
 
+### 0.1.1 published and scanned (2026-11-22)
+
+- `0.1.1` published by `publish.yml` (tag `0.1.1`, commit `4aa0a54`): the `scan` job (no secret, no
+  OIDC token) then the `publish` job, with provenance (SLSA v1). `latest` is `0.1.1`.
+- `npx @n8n/scan-community-package n8n-nodes-silverpoint@0.1.1`: *has passed all security checks* —
+  provenance, the attested source (`github.com/ecrespo/n8n-nodes-silverpoint@4aa0a54`), its lint and the
+  package's. Installed from npm, it renders SVG and Interactive HTML with engine 0.11.1.
+- npm set-up done by the maintainer: `0.1.0` deprecated ("Use 0.1.1 or later: 0.1.0 fails n8n's
+  community-package scanner."); the `NPM_TOKEN` secret deleted; Trusted Publisher set (GitHub Actions,
+  `ecrespo/n8n-nodes-silverpoint`, `publish.yml`, no environment); `@silverpoint:developers` given
+  read-write on the package (an unscoped package stays owned by its user, not listed under the org).
+- Trusted Publishing is not exercised yet: the next tag is the first release without a token. If it
+  fails at `npm publish`, nothing is published; check the Trusted Publisher with `npm trust list`.
+
 ### Open
 
-- N8N-OQ-1, the Creator Portal question (bundle size: the bundled engine is 1.1 MB of CommonJS, the
+- N8N-T-09: submit `n8n-nodes-silverpoint@0.1.1` through the n8n Creator Portal.
+- N8N-OQ-1, to ask there (bundle size: the bundled engine is 1.1 MB of CommonJS, fonts and the
   standalone script included; the packed package is 489 kB, 1.7 MB unpacked).
-- N8N-T-09: the first release and the community-package scanner (it reads the published package).
 

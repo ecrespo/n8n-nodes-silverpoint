@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.1
+## 0.1.1 (2026-11-22)
 
 - The bundled engine carries only what the node calls (the DOM-free render and `specFromTable`); the
   browser client and the conformance kit stay out, so the package passes n8n's community-package
